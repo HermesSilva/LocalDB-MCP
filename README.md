@@ -22,6 +22,18 @@ Existing MCP tools for SQL Server assume an already-configured remote server and
 
 Published on the [official MCP Registry](https://registry.modelcontextprotocol.io) as `io.github.hermessilva/mssql-localdb-mcp`. Install through any MCP client that supports the registry.
 
+### Via VS Code extension
+
+The [`vscode-extension/`](vscode-extension/) directory packages the server as a VS Code extension that registers it automatically through the MCP provider API (VS Code 1.101+), with the Windows binary bundled — nothing to download or configure by hand. Build the `.vsix` locally with:
+
+```powershell
+./build-vsix.ps1                 # bumps the build segment; -Version x.y.z or -NoBump to control it
+code --install-extension .\mssql-localdb-mcp-1.0.1-win32-x64.vsix
+```
+
+The extension has its own version line, independent from `Cargo.toml` — the crate version is what
+the `vX.Y.Z` tag and the MCP Registry publish.
+
 ### Via Claude Code plugin
 
 The [`claude-plugin/`](claude-plugin/) directory in this repo is a self-contained Claude Code plugin (bundles the Windows binary directly, no separate download). Load it directly with:

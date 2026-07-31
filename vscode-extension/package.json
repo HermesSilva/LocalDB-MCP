@@ -1,0 +1,101 @@
+{
+  "name": "mssql-localdb-mcp",
+  "displayName": "MSSQL LocalDB MCP",
+  "description": "MCP server for SQL Server Express LocalDB on Windows: manage instances, run T-SQL, discover databases.",
+  "version": "1.0.1",
+  "publisher": "hermessilva",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "keywords": [
+    "mcp",
+    "sql server",
+    "localdb",
+    "mssql",
+    "database"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hermessilva/LocalDB-MCP.git",
+    "directory": "vscode-extension"
+  },
+  "homepage": "https://github.com/hermessilva/LocalDB-MCP",
+  "bugs": {
+    "url": "https://github.com/hermessilva/LocalDB-MCP/issues"
+  },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "The MCP server executes T-SQL and attaches database files from the machine, so it only runs in trusted workspaces."
+    }
+  },
+  "contributes": {
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "mssql-localdb",
+        "label": "MSSQL LocalDB"
+      }
+    ],
+    "commands": [
+      {
+        "command": "mssqlLocaldbMcp.openConfig",
+        "title": "Open config.toml",
+        "category": "MSSQL LocalDB MCP"
+      },
+      {
+        "command": "mssqlLocaldbMcp.registerWithClaudeCode",
+        "title": "Register with Claude Code CLI",
+        "category": "MSSQL LocalDB MCP"
+      },
+      {
+        "command": "mssqlLocaldbMcp.showServerPath",
+        "title": "Show Server Binary Path",
+        "category": "MSSQL LocalDB MCP"
+      }
+    ],
+    "configuration": {
+      "title": "MSSQL LocalDB MCP",
+      "properties": {
+        "mssqlLocaldbMcp.serverPath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path to `mssql-localdb-mcp.exe`. Leave empty to use the binary bundled with the extension. Environment variables in `%NAME%` form are expanded."
+        },
+        "mssqlLocaldbMcp.logLevel": {
+          "type": "string",
+          "default": "info",
+          "enum": [
+            "error",
+            "warn",
+            "info",
+            "debug",
+            "trace"
+          ],
+          "description": "Server log level (stderr only). Sets MSSQL_LOCALDB_MCP_LOG_LEVEL."
+        },
+        "mssqlLocaldbMcp.queryTimeoutSeconds": {
+          "type": "integer",
+          "default": 30,
+          "minimum": 1,
+          "description": "Default query timeout in seconds. Sets MSSQL_LOCALDB_MCP_QUERY_TIMEOUT_SECS."
+        },
+        "mssqlLocaldbMcp.maxRows": {
+          "type": "integer",
+          "default": 1000,
+          "minimum": 1,
+          "description": "Default maximum number of rows returned per query. Sets MSSQL_LOCALDB_MCP_DEFAULT_MAX_ROWS."
+        }
+      }
+    }
+  }
+}
