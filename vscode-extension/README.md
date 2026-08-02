@@ -25,10 +25,10 @@ scan_max_depth = 6
 
 ## Claude Code CLI
 
-VS Code registers MCP servers in-process, so the Claude Code CLI (in the terminal, or in the VS Code panel) does **not** inherit this extension's server — it reads its own config. Run **MSSQL LocalDB MCP: Register with Claude Code CLI** from the Command Palette to register it there too, reusing the binary already installed by the extension:
+VS Code registers MCP servers in-process, so the Claude Code CLI (in the terminal, or in the VS Code panel) does **not** inherit this extension's server — it reads its own config. The extension handles it: when it activates and finds the CLI installed with no `mssql-localdb` server registered, it asks once whether it may add it (*Register* / *Not now* / *Never*). Later activations check the entry the CLI holds and repair it silently — the recorded path lives inside the versioned extension folder, so every update moves it, and a change to the settings below is carried over too. **MSSQL LocalDB MCP: Register with Claude Code CLI** in the Command Palette forces the same registration, and is the way back for anyone who answered *Never*. Either way the CLI ends up with:
 
 ```powershell
-claude mcp add mssql-localdb --scope user -- "<extension>\server\mssql-localdb-mcp.exe"
+claude mcp add mssql-localdb --scope user -e MSSQL_LOCALDB_MCP_LOG_LEVEL=info -e MSSQL_LOCALDB_MCP_QUERY_TIMEOUT_SECS=30 -e MSSQL_LOCALDB_MCP_DEFAULT_MAX_ROWS=1000 -- "<extension>\server\mssql-localdb-mcp.exe"
 ```
 
 ## Settings

@@ -2,7 +2,7 @@
   "name": "mssql-localdb-mcp",
   "displayName": "MSSQL LocalDB MCP",
   "description": "MCP server for SQL Server Express LocalDB on Windows: manage instances, run T-SQL, discover databases.",
-  "version": "1.0.1",
+  "version": "1.0.7",
   "publisher": "hermessilva",
   "license": "MIT",
   "icon": "icon.png",
